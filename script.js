@@ -1,66 +1,102 @@
+const rpsUI = document.querySelector('.rps-ui');
+const selectionContainer = document.querySelector('.selection-container');
+const dashbord = document.querySelector('.dashbord');
+const rock = document.querySelector('#rock');
+
+
+const selectionArr = ['Rock', 'Paper', 'Scissors'];
+console.log(selectionArr[1])
+
 // Solution 1:-
-function getComputerChoice() {
-    listWords; 
-    const computerRandom = Math.floor(Math.random() * listWords.length);
-    return listWords[computerRandom];
+let roundCounter = 1;
+let scoreCounter = 0;
+const roundElem = document.createElement('span');
+roundElem.textContent = `Round: ${roundCounter}`;
+roundElem.classList.add('roundElem');
+selectionContainer.appendChild(roundElem);
+
+function playRound(e) {
+
+    roundElem.textContent = `Round: ${roundCounter}`;
+    selectionContainer.appendChild(roundElem);
+    const total = document.querySelector('#total');
+    const ranChoice =  Math.floor(Math.random() * selectionArr.length);    
+    const target = e.target;
+    const urScore = document.querySelector('.dashbord #ur-score');
+    const compScore = document.querySelector('.dashbord #comp-score');
+
+
+    if (roundCounter === 5) {       
+        rpsUI.innerHTML = '<p id="game-over">Game over!</p>';                        
+        
+    } else {
+        
+        urScore.textContent = `Your score; ${scoreCounter}`;
+        compScore.textContent = `Computer score; ${scoreCounter}`;
+            
+        
+        if (target.value === 'Rock' && selectionArr[ranChoice] === 'Scissors'
+            || target.value === 'Paper' && selectionArr[ranChoice] === 'Rock'
+            || target.value === 'Scissors' && selectionArr[ranChoice] === 'Paper'
+        )   
+            {   scoreCounter++;
+                urScore.textContent = `Your score; ${scoreCounter}`;            
+                result.innerHTML = `<br>You won! ${target.value} beats ${selectionArr[ranChoice]}`;
+                
+            } else {
+                if (target.value === selectionArr[ranChoice]) {                
+                    result.innerHTML = `<br>It's tie!`;
+                
+                } else {             
+                    scoreCounter++;
+                    compScore.textContent = `Computer score; ${scoreCounter}`;              
+                    result.innerHTML = `<br>You lost! ${selectionArr[ranChoice]} beats ${target.value}`;
+                }  
+            }             
+
+    }
+    roundCounter++;    
+    
+    // roundElem.textContent = `Round: ${roundCounter}`;
+    // selectionContainer.appendChild(roundElem);
+    // const ranChoice =  Math.floor(Math.random() * selectionArr.length);    
+    // const target = e.target;
+    // const urScore = document.querySelector('.dashbord #ur-score');
+    // const compScore = document.querySelector('.dashbord #comp-score');
+
+    // urScore.textContent = `Your score; ${scoreCounter}`;
+    // compScore.textContent = `Computer score; ${scoreCounter}`;
+        
+    
+    // if (target.value === 'Rock' && selectionArr[ranChoice] === 'Scissors'
+    //     || target.value === 'Paper' && selectionArr[ranChoice] === 'Rock'
+    //     || target.value === 'Scissors' && selectionArr[ranChoice] === 'Paper'
+    // )   
+    //     {   scoreCounter++;
+    //         urScore.textContent = `Your score; ${scoreCounter}`;            
+    //         result.innerHTML = `<br>You won! ${target.value} beats ${selectionArr[ranChoice]}`;
+            
+    //     } else {
+    //         if (target.value === selectionArr[ranChoice]) {                
+    //             result.innerHTML = `<br>It's tie!`;
+            
+    //         } else {             
+    //             scoreCounter++;
+    //             compScore.textContent = `Computer score; ${scoreCounter}`;              
+    //             result.innerHTML = `<br>You lost! ${selectionArr[ranChoice]} beats ${target.value}`;
+    //         }  
+    //     }                          
+               
 };
-
-// Score Varibales:-
-let humanScore = 0;
-let computerScore = 0;
-
-// list Words
-let listWords = ['Rock', 'Paper', 'Scissors'];
 
 // Solution 2:-
-function getHumanChocie() {
-    const humanInput = prompt('Type: Rock, Paper, Scissors');   
-    let humanInWord = humanInput.charAt(0).toUpperCase() + humanInput.slice(1);  
-    return humanInWord;
-};
+const btns = document.querySelectorAll('button');
+btns.forEach(btn => btn.addEventListener('click', playRound));
 
-// Solution 3:-
-function playRound(humanChoice, computerChoice) {  
-    if (humanChoice === 'Scissors' && computerChoice === "Paper"
-    || humanChoice === 'Paper' && computerChoice === 'Rock' ||
-    humanChoice === 'Rock' && computerChoice === 'Scissors'
-   ) {    
-    humanScore++;    
-    console.log(`You win!\n${humanChoice} beats ${computerChoice}`);    
-    console.log(`Your socre: ${humanScore}`);
 
-   } else {
-    if (humanChoice === computerChoice) {
-        console.log('It\'s draw!');
+// Solution 2:-
 
-    } else if (!listWords.includes(humanChoice)) {
-        console.log(`${humanChoice} wrong choose!`);
 
-    } else {     
-        computerScore++;    
-        console.log(`You lose!\n${computerChoice} beats ${humanChoice}`);
-        console.log(`Computer socre: ${computerScore}`);
-    }  
-   }     
-};
-
-// Solution 4:-
-function gamePlay() {
-    humanScore;   
-    computerScore; 
-    let roundCounter = 0;
-    
-    while (roundCounter < 5) {
-        roundCounter++;        
-        alert(`Round: ${roundCounter}`);
-        playRound(getHumanChocie(), getComputerChoice());
-        if (roundCounter === 5) {
-            console.log(`Total score:\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-        }             
-    }      
-};
-
-gamePlay();
 
 
 
